@@ -1,12 +1,13 @@
 {{define "page"}}
+{{with .Content}}
 <section class="hero hero--bg">
   <div class="container hero__inner">
     <p class="eyebrow">{{.Tagline}}</p>
-    <h1>Bezzałogowe systemy lotnicze dla wymagających środowisk.</h1>
+    <h1>{{.Heading}}</h1>
     <p class="hero__lead">{{.Lead}}</p>
     <div class="hero__actions">
-      <a class="btn btn--primary" href="/hangar">Zobacz katalog platform</a>
-      <a class="btn btn--ghost" href="/contact">Nawiąż łączność</a>
+      <a class="btn btn--primary" href="{{$.HomeHref}}hangar">{{.CTACatalog}}</a>
+      <a class="btn btn--ghost" href="{{$.HomeHref}}contact">{{.CTAContact}}</a>
     </div>
 
     {{with .Stats}}
@@ -24,9 +25,9 @@
 
 <section class="container section">
   <header class="section-head">
-    <p class="eyebrow">Obszary zastosowań</p>
-    <h2 class="section-head__title">Co projektujemy i dla kogo</h2>
-    <p class="section-head__lead">Trzy główne kierunki, w których nasze platformy są dziś wykorzystywane przez partnerów przemysłowych, akademickich i publicznych.</p>
+    <p class="eyebrow">{{.AreasEyebrow}}</p>
+    <h2 class="section-head__title">{{.AreasHeading}}</h2>
+    <p class="section-head__lead">{{.AreasLead}}</p>
   </header>
 
   <div class="feature-list">
@@ -45,4 +46,5 @@
     {{end}}
   </div>
 </section>
+{{end}}
 {{end}}

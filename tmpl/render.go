@@ -23,11 +23,25 @@ type Renderer struct {
 	pages map[string]*template.Template
 }
 
+// tr looks up a string in the localized chrome map. If the key is
+// missing it returns the key itself so missing translations are
+// visible in the rendered HTML rather than silently empty.
+func tr(strings map[string]string, key string) string {
+	if s, ok := strings[key]; ok {
+		return s
+	}
+	return key
+}
+
+var funcMap = template.FuncMap{
+	"tr": tr,
+}
+
 func NewRenderer(fsys fs.FS) (*Renderer, error) {
 	pages := make(map[string]*template.Template, len(pageFiles))
 
 	for key, pageFile := range pageFiles {
-		t, err := template.ParseFS(
+		t, err := template.New(key).Funcs(funcMap).ParseFS(
 			fsys,
 			"templates/base.tmpl",
 			"templates/partials/*.tmpl",

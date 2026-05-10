@@ -1,12 +1,12 @@
 (function () {
   /** @type {HTMLInputElement | null} */
   const toggle = document.querySelector('.nav-toggle');
-  /** @type {HTMLElement | null} */
+    /** @type {HTMLElement | null} */
   const panel  = document.getElementById('navPanel');
   if (!toggle || !panel) return;
 
-  const labelOpen  = 'Otwórz menu';
-  const labelClose = 'Zamknij menu';
+  const labelOpen  = toggle.dataset.labelOpen  || 'Open menu';
+  const labelClose = toggle.dataset.labelClose || 'Close menu';
 
   /** @param {boolean | undefined} open */
   function setOpen(open) {

@@ -1,8 +1,9 @@
 {{define "page"}}
+{{with .Content}}
 <section class="container section">
   <header class="section-head">
     <p class="eyebrow">{{.Tagline}}</p>
-    <h1>Hangar</h1>
+    <h1>{{.Heading}}</h1>
     <p class="section-head__lead">{{.Lead}}</p>
   </header>
 
@@ -27,4 +28,5 @@
   </section>
   {{end}}
 </section>
+{{end}}
 {{end}}

@@ -1,22 +1,23 @@
 {{define "page"}}
+{{with .Content}}
 <section class="container section">
   <header class="section-head">
     <p class="eyebrow">{{.Tagline}}</p>
-    <h1>Nawiąż łączność</h1>
+    <h1>{{.Heading}}</h1>
     <p class="section-head__lead">{{.Lead}}</p>
   </header>
 
   <div class="contact-layout">
-    <form class="form-panel" method="post" action="/contact" novalidate>
+    <form class="form-panel" method="post" action="" novalidate>
       <!-- Honeypot: real users won't see or fill this. -->
       <div class="hp-field" aria-hidden="true">
-        <label for="website">Strona</label>
+        <label for="website">{{.Labels.HoneypotLabel}}</label>
         <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
       </div>
 
       <div class="field-grid">
         <div class="field">
-          <label class="form-label" for="name">Imię i nazwisko</label>
+          <label class="form-label" for="name">{{.Labels.Name}}</label>
           <input class="input" id="name" name="name" type="text" required
                  value="{{.Form.Name}}"
                  {{with index .FieldErrors "name"}}aria-invalid="true"{{end}}>
@@ -24,12 +25,12 @@
         </div>
 
         <div class="field">
-          <label class="form-label" for="org">Instytucja / Organizacja</label>
+          <label class="form-label" for="org">{{.Labels.Org}}</label>
           <input class="input" id="org" name="org" type="text" value="{{.Form.Org}}">
         </div>
 
         <div class="field">
-          <label class="form-label" for="email">Adres e-mail</label>
+          <label class="form-label" for="email">{{.Labels.Email}}</label>
           <input class="input" id="email" name="email" type="email" required
                  value="{{.Form.Email}}"
                  {{with index .FieldErrors "email"}}aria-invalid="true"{{end}}>
@@ -37,15 +38,15 @@
         </div>
 
         <div class="field">
-          <label class="form-label" for="phone">Telefon</label>
+          <label class="form-label" for="phone">{{.Labels.Phone}}</label>
           <input class="input" id="phone" name="phone" type="tel" value="{{.Form.Phone}}">
         </div>
 
         <div class="field field--full">
-          <label class="form-label" for="topic">Temat</label>
+          <label class="form-label" for="topic">{{.Labels.Topic}}</label>
           <select class="select" id="topic" name="topic" required
                   {{with index .FieldErrors "topic"}}aria-invalid="true"{{end}}>
-            <option value="">Wybierz temat</option>
+            <option value="">{{.Labels.TopicPlaceholder}}</option>
             {{$selected := .Form.Topic}}
             {{range .Topics}}
             <option value="{{.}}" {{if eq . $selected}}selected{{end}}>{{.}}</option>
@@ -55,35 +56,36 @@
         </div>
 
         <div class="field field--full">
-          <label class="form-label" for="message">Wiadomość</label>
+          <label class="form-label" for="message">{{.Labels.Message}}</label>
           <textarea class="textarea" id="message" name="message" required
                     {{with index .FieldErrors "message"}}aria-invalid="true"{{end}}>{{.Form.Message}}</textarea>
           {{with index .FieldErrors "message"}}<p class="field-error">{{.}}</p>{{end}}
         </div>
       </div>
 
-      <button class="btn btn--primary" type="submit">Wyślij wiadomość
+      <button class="btn btn--primary" type="submit">{{.Labels.Submit}}
         <svg class="btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 8a.5.5.0 01.5-.5h11.793l-3.147-3.146a.5.5.0 01.708-.708l4 4a.5.5.0 010 .708l-4 4a.5.5.0 01-.708-.708L13.293 8.5H1.5A.5.5.0 011 8z"/></svg>
       </button>
     </form>
 
     <aside class="contact-panel">
-      <h2 class="contact-panel__title">Kontakt bezpośredni</h2>
+      <h2 class="contact-panel__title">{{.Labels.AsideTitle}}</h2>
       <ul class="contact-list">
         <li>
-          <span class="contact-list__label">E-mail</span>
+          <span class="contact-list__label">{{.Labels.EmailLabel}}</span>
           <a href="mailto:{{.ContactInfo.Email}}">{{.ContactInfo.Email}}</a>
         </li>
         <li>
-          <span class="contact-list__label">Telefon</span>
+          <span class="contact-list__label">{{.Labels.PhoneLabel}}</span>
           <a href="tel:{{.ContactInfo.Phone}}">{{.ContactInfo.Phone}}</a>
         </li>
         <li>
-          <span class="contact-list__label">Adres</span>
+          <span class="contact-list__label">{{.Labels.AddressLabel}}</span>
           <span>{{range $i, $line := .ContactInfo.Address}}{{if $i}}<br>{{end}}{{$line}}{{end}}</span>
         </li>
       </ul>
     </aside>
   </div>
 </section>
+{{end}}
 {{end}}

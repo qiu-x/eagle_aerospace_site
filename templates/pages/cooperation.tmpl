@@ -1,8 +1,9 @@
 {{define "page"}}
+{{with .Content}}
 <section class="container section">
   <header class="section-head">
     <p class="eyebrow">{{.Tagline}}</p>
-    <h1>Współpraca</h1>
+    <h1>{{.Heading}}</h1>
     <p class="section-head__lead">{{.Lead}}</p>
   </header>
 
@@ -26,7 +27,7 @@
 
 <section class="container section section--tight">
   <div class="logo-strip">
-    <h2 class="logo-strip__title">Partnerzy i instytucje</h2>
+    <h2 class="logo-strip__title">{{.PartnersTitle}}</h2>
     <ul class="logo-strip__list">
       {{range .Partners}}
       <li class="logo-strip__item">{{.Name}}</li>
@@ -34,4 +35,5 @@
     </ul>
   </div>
 </section>
+{{end}}
 {{end}}

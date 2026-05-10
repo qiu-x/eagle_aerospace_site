@@ -2,24 +2,24 @@
 <footer class="site-footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <a class="nav-logo" href="/">
+      <a class="nav-logo" href="{{.HomeHref}}">
         <span class="nav-logo__tile" aria-hidden="true">
           <img src="/content/img/logo.png" alt="" width="128" height="128">
         </span>
         <span class="nav-logo__wordmark">EAGLE<span> AEROSPACE</span></span>
       </a>
-      <p>Polskie systemy bezzałogowe projektowane i produkowane lokalnie. Inżynieria, która działa tam, gdzie zawodzą standardowe rozwiązania.</p>
+      <p>{{tr .Strings "footer.about"}}</p>
     </div>
 
     <div class="footer__col">
-      <div class="footer__title">Nawigacja</div>
+      <div class="footer__title">{{tr .Strings "footer.nav_title"}}</div>
       <ul class="footer__nav">
         {{range .NavItems}}<li><a href="{{.Href}}">{{.Label}}</a></li>{{end}}
       </ul>
     </div>
 
     <div class="footer__col">
-      <div class="footer__title">Kontakt</div>
+      <div class="footer__title">{{tr .Strings "footer.contact_title"}}</div>
       <ul class="footer__nav">
         <li>biuro@eagleaero.space</li>
         <li>+48 883 550 701</li>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="container footer__bottom">
-    <p>© Eagle Aerospace · Wszelkie prawa zastrzeżone</p>
+    <p>{{tr .Strings "footer.copyright"}}</p>
   </div>
 </footer>
 {{end}}

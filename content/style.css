@@ -1,8 +1,8 @@
-/* --------------------- TOKENS --------------------- */
+/* --------------------- VARS --------------------- */
 :root {
   color-scheme: dark;
 
-  /* neutrals */
+  /* theme */
   --bg:            #0c0f13;
   --surface:       #12161b;
   --surface-2:     #171c22;
@@ -26,7 +26,7 @@
   --success:       #61856d;
   --danger:        #b66058;
 
-  /* type scale (restrained) */
+  /* type scale */
   --fs-eyebrow: clamp(0.72rem,  0.70rem + 0.08vw, 0.78rem);
   --fs-small:   clamp(0.875rem, 0.85rem + 0.10vw, 0.94rem);
   --fs-body:    clamp(1rem,     0.98rem + 0.10vw, 1.05rem);
@@ -43,7 +43,7 @@
   --grid-gap:            clamp(1rem, 0.75rem + 1vw, 1.75rem);
   --card-pad:            1.25rem;
 
-  /* radii - rectilinear */
+  /* rectilinear radii */
   --radius-sm: 2px;
   --radius-md: 4px;
 
@@ -135,8 +135,46 @@ main { padding-top: var(--nav-h); min-height: 100vh; }
   min-height: var(--nav-h);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
+}
+.nav-logo { margin-right: auto; }
+
+.nav-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* PL | EN switch */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+}
+.lang-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  transition: color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+.lang-link + .lang-link { border-left: 1px solid var(--border); }
+.lang-link:hover { color: var(--text); background: var(--surface-2); }
+.lang-link.is-active {
+  color: var(--text);
+  background: var(--surface-2);
+  cursor: default;
 }
 .nav-logo {
   display: inline-flex;
@@ -230,8 +268,9 @@ main { padding-top: var(--nav-h); min-height: 100vh; }
 
 /* --------------------- MOBILE NAV PANEL --------------------- */
 @media (max-width: 63.999rem) {
-  .nav-toggle {
-    display: inline-flex;
+  .nav-toggle { display: inline-flex; }
+  /* keep lang switch + hamburger clickable above the open overlay */
+  .nav-controls {
     position: relative;
     z-index: 2;
   }

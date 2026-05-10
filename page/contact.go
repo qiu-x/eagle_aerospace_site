@@ -11,36 +11,31 @@ import (
 
 const minMessageLen = 20
 
-func contactBaseData(content tmpl.ContactPageData, flash *tmpl.FlashMessage) tmpl.BasePageData {
-	return tmpl.BasePageData{
-		Title:        "Nawiąż łączność - Eagle Aerospace",
-		MetaDesc:     "Skontaktuj się z zespołem inżynierskim Eagle Aerospace.",
-		ActiveNavKey: "contact",
-		BodyClass:    "page-contact",
-		NavItems:     tmpl.NavItems,
-		Flash:        flash,
-		Content:      content,
-	}
+func contactBaseData(lang tmpl.Lang, reqPath string,
+	content tmpl.ContactPageData, flash *tmpl.FlashMessage) tmpl.BasePageData {
+	return newBaseData(lang, "contact", "page-contact", "contact", reqPath, content, flash)
 }
 
-func ContactGetHandler(r *tmpl.Renderer) http.HandlerFunc {
+func ContactGetHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
+	site := tmpl.SiteFor(lang)
 	return func(w http.ResponseWriter, req *http.Request) {
 		var flash *tmpl.FlashMessage
 		if req.URL.Query().Get("sent") == "1" {
 			flash = &tmpl.FlashMessage{
 				Kind: "success",
-				Text: "Dziękujemy. Wiadomość trafiła do naszego zespołu - odezwiemy się tak szybko, jak to możliwe.",
+				Text: site.Strings["flash.contact_success"],
 			}
 		}
 		// Copy the static content so we can attach a per-request blank form.
-		c := tmpl.ContactContent
+		c := site.Contact
 		c.Form = tmpl.ContactFormInput{}
 		c.FieldErrors = nil
-		renderOrFail(w, r, "contact", contactBaseData(c, flash))
+		renderOrFail(w, r, "contact", contactBaseData(lang, req.URL.Path, c, flash))
 	}
 }
 
-func ContactPostHandler(r *tmpl.Renderer) http.HandlerFunc {
+func ContactPostHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
+	site := tmpl.SiteFor(lang)
 	return func(w http.ResponseWriter, req *http.Request) {
 		if err := req.ParseForm(); err != nil {
 			http.Error(w, "bad form", http.StatusBadRequest)
@@ -49,7 +44,7 @@ func ContactPostHandler(r *tmpl.Renderer) http.HandlerFunc {
 
 		// Honeypot :D
 		if strings.TrimSpace(req.PostForm.Get("website")) != "" {
-			http.Redirect(w, req, "/contact?sent=1", http.StatusSeeOther)
+			http.Redirect(w, req, req.URL.Path+"?sent=1", http.StatusSeeOther)
 			return
 		}
 
@@ -62,22 +57,23 @@ func ContactPostHandler(r *tmpl.Renderer) http.HandlerFunc {
 			Message: strings.TrimSpace(req.PostForm.Get("message")),
 		}
 
-		errs := validateContact(form)
+		errs := validateContact(form, site.Strings)
 		if len(errs) > 0 {
-			c := tmpl.ContactContent
+			c := site.Contact
 			c.Form = form
 			c.FieldErrors = errs
 			flash := &tmpl.FlashMessage{
 				Kind: "error",
-				Text: "Sprawdź podświetlone pola i spróbuj ponownie.",
+				Text: site.Strings["flash.contact_error"],
 			}
 			w.WriteHeader(http.StatusUnprocessableEntity)
-			renderOrFail(w, r, "contact", contactBaseData(c, flash))
+			renderOrFail(w, r, "contact", contactBaseData(lang, req.URL.Path, c, flash))
 			return
 		}
 
-		// v1: just log it. SMTP / file storage comes later.
+		// SMTP / file storage comes later.
 		slog.Info("contact submission",
+			slog.String("lang", string(lang)),
 			slog.String("name", form.Name),
 			slog.String("org", form.Org),
 			slog.String("email", form.Email),
@@ -86,28 +82,28 @@ func ContactPostHandler(r *tmpl.Renderer) http.HandlerFunc {
 			slog.Int("message_len", len(form.Message)),
 		)
 
-		http.Redirect(w, req, "/contact?sent=1", http.StatusSeeOther)
+		http.Redirect(w, req, req.URL.Path+"?sent=1", http.StatusSeeOther)
 	}
 }
 
-func validateContact(f tmpl.ContactFormInput) map[string]string {
+func validateContact(f tmpl.ContactFormInput, s map[string]string) map[string]string {
 	errs := map[string]string{}
 
 	if f.Name == "" {
-		errs["name"] = "Podaj imię i nazwisko."
+		errs["name"] = s["err.contact.name"]
 	}
 	if f.Email == "" {
-		errs["email"] = "Podaj adres e-mail."
+		errs["email"] = s["err.contact.email_req"]
 	} else if addr, err := mail.ParseAddress(f.Email); err != nil || addr.Address != f.Email {
-		errs["email"] = "Podaj poprawny adres e-mail."
+		errs["email"] = s["err.contact.email_inv"]
 	}
 	if f.Topic == "" {
-		errs["topic"] = "Wybierz temat zgłoszenia."
+		errs["topic"] = s["err.contact.topic"]
 	}
 	if f.Message == "" {
-		errs["message"] = "Napisz krótką wiadomość."
+		errs["message"] = s["err.contact.message_req"]
 	} else if len(f.Message) < minMessageLen {
-		errs["message"] = "Wiadomość jest zbyt krótka - opisz pokrótce, czego dotyczy."
+		errs["message"] = s["err.contact.message_min"]
 	}
 
 	return errs

@@ -1,18 +1,12 @@
 {{define "nav"}}
 <header class="site-header">
   <div class="container nav-bar">
-    <a class="nav-logo" href="/">
+    <a class="nav-logo" href="{{.HomeHref}}">
       <span class="nav-logo__tile" aria-hidden="true">
         <img src="/content/img/logo.png" alt="" width="128" height="128">
       </span>
       <span class="nav-logo__wordmark">EAGLE<span> AEROSPACE</span></span>
     </a>
-
-    <button class="nav-toggle" type="button" aria-controls="navPanel" aria-expanded="false" aria-label="Otwórz menu">
-      <span class="nav-toggle__bar"></span>
-      <span class="nav-toggle__bar"></span>
-      <span class="nav-toggle__bar"></span>
-    </button>
 
     <nav class="nav-panel" id="navPanel">
       <ul class="nav-links">
@@ -23,6 +17,28 @@
         {{end}}
       </ul>
     </nav>
+
+    <div class="nav-controls">
+      <div class="lang-switch" role="group" aria-label="{{tr .Strings "nav.lang_label"}}">
+        {{range .LangLinks}}
+        <a class="lang-link{{if .Active}} is-active{{end}}"
+           href="{{.Href}}"
+           hreflang="{{.Code}}"
+           lang="{{.Code}}"
+           {{if .Active}}aria-current="true"{{end}}>{{.Label}}</a>
+        {{end}}
+      </div>
+
+      <button class="nav-toggle" type="button"
+              aria-controls="navPanel" aria-expanded="false"
+              aria-label="{{tr .Strings "nav.toggle_open"}}"
+              data-label-open="{{tr .Strings "nav.toggle_open"}}"
+              data-label-close="{{tr .Strings "nav.toggle_close"}}">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+    </div>
   </div>
 </header>
 {{end}}
