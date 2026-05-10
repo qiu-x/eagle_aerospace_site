@@ -1,0 +1,25 @@
+{{define "page"}}
+<section class="container section">
+  <header class="section-head">
+    <p class="eyebrow">{{.Tagline}}</p>
+    <h1>Scenariusze</h1>
+    <p class="section-head__lead">{{.Lead}}</p>
+  </header>
+
+  <div class="card-grid">
+    {{range .Scenarios}}
+    <article class="card">
+      {{if .ImgPath}}
+      <div class="card__media" aria-hidden="true">
+        <img src="{{.ImgPath}}" alt="{{.Alt}}">
+      </div>
+      {{end}}
+      <div class="card__body">
+        <h3 class="card__title">{{.Title}}</h3>
+        <p class="card__text">{{.Text}}</p>
+      </div>
+    </article>
+    {{end}}
+  </div>
+</section>
+{{end}}

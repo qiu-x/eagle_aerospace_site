@@ -1,0 +1,30 @@
+{{define "page"}}
+<section class="container section">
+  <header class="section-head">
+    <p class="eyebrow">{{.Tagline}}</p>
+    <h1>Hangar</h1>
+    <p class="section-head__lead">{{.Lead}}</p>
+  </header>
+
+  {{range .Groups}}
+  <section class="catalog-group">
+    <h2 class="catalog-group__title">{{.Label}}</h2>
+    <div class="card-grid">
+      {{range .Items}}
+      <article class="card">
+        {{if .ImgPath}}
+        <div class="card__media" aria-hidden="true">
+          <img src="{{.ImgPath}}" alt="{{.Alt}}">
+        </div>
+        {{end}}
+        <div class="card__body">
+          <p class="eyebrow">{{.Name}}</p>
+          <h3 class="card__title">{{.Description}}</h3>
+        </div>
+      </article>
+      {{end}}
+    </div>
+  </section>
+  {{end}}
+</section>
+{{end}}

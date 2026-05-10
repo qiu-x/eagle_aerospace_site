@@ -1,0 +1,7 @@
+{{define "section_head"}}
+<header class="section-head">
+  {{with .Tagline}}<p class="eyebrow">{{.}}</p>{{end}}
+  <h2 class="section-head__title">{{.Title}}</h2>
+  {{with .Lead}}<p class="section-head__lead">{{.}}</p>{{end}}
+</header>
+{{end}}

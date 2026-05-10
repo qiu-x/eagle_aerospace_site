@@ -1,0 +1,89 @@
+{{define "page"}}
+<section class="container section">
+  <header class="section-head">
+    <p class="eyebrow">{{.Tagline}}</p>
+    <h1>Nawiąż łączność</h1>
+    <p class="section-head__lead">{{.Lead}}</p>
+  </header>
+
+  <div class="contact-layout">
+    <form class="form-panel" method="post" action="/contact" novalidate>
+      <!-- Honeypot: real users won't see or fill this. -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="website">Strona</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label class="form-label" for="name">Imię i nazwisko</label>
+          <input class="input" id="name" name="name" type="text" required
+                 value="{{.Form.Name}}"
+                 {{with index .FieldErrors "name"}}aria-invalid="true"{{end}}>
+          {{with index .FieldErrors "name"}}<p class="field-error">{{.}}</p>{{end}}
+        </div>
+
+        <div class="field">
+          <label class="form-label" for="org">Instytucja / Organizacja</label>
+          <input class="input" id="org" name="org" type="text" value="{{.Form.Org}}">
+        </div>
+
+        <div class="field">
+          <label class="form-label" for="email">Adres e-mail</label>
+          <input class="input" id="email" name="email" type="email" required
+                 value="{{.Form.Email}}"
+                 {{with index .FieldErrors "email"}}aria-invalid="true"{{end}}>
+          {{with index .FieldErrors "email"}}<p class="field-error">{{.}}</p>{{end}}
+        </div>
+
+        <div class="field">
+          <label class="form-label" for="phone">Telefon</label>
+          <input class="input" id="phone" name="phone" type="tel" value="{{.Form.Phone}}">
+        </div>
+
+        <div class="field field--full">
+          <label class="form-label" for="topic">Temat</label>
+          <select class="select" id="topic" name="topic" required
+                  {{with index .FieldErrors "topic"}}aria-invalid="true"{{end}}>
+            <option value="">Wybierz temat</option>
+            {{$selected := .Form.Topic}}
+            {{range .Topics}}
+            <option value="{{.}}" {{if eq . $selected}}selected{{end}}>{{.}}</option>
+            {{end}}
+          </select>
+          {{with index .FieldErrors "topic"}}<p class="field-error">{{.}}</p>{{end}}
+        </div>
+
+        <div class="field field--full">
+          <label class="form-label" for="message">Wiadomość</label>
+          <textarea class="textarea" id="message" name="message" required
+                    {{with index .FieldErrors "message"}}aria-invalid="true"{{end}}>{{.Form.Message}}</textarea>
+          {{with index .FieldErrors "message"}}<p class="field-error">{{.}}</p>{{end}}
+        </div>
+      </div>
+
+      <button class="btn btn--primary" type="submit">Wyślij wiadomość
+        <svg class="btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 8a.5.5.0 01.5-.5h11.793l-3.147-3.146a.5.5.0 01.708-.708l4 4a.5.5.0 010 .708l-4 4a.5.5.0 01-.708-.708L13.293 8.5H1.5A.5.5.0 011 8z"/></svg>
+      </button>
+    </form>
+
+    <aside class="contact-panel">
+      <h2 class="contact-panel__title">Kontakt bezpośredni</h2>
+      <ul class="contact-list">
+        <li>
+          <span class="contact-list__label">E-mail</span>
+          <a href="mailto:{{.ContactInfo.Email}}">{{.ContactInfo.Email}}</a>
+        </li>
+        <li>
+          <span class="contact-list__label">Telefon</span>
+          <a href="tel:{{.ContactInfo.Phone}}">{{.ContactInfo.Phone}}</a>
+        </li>
+        <li>
+          <span class="contact-list__label">Adres</span>
+          <span>{{range $i, $line := .ContactInfo.Address}}{{if $i}}<br>{{end}}{{$line}}{{end}}</span>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</section>
+{{end}}

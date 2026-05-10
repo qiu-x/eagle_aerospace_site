@@ -1,0 +1,5 @@
+{{define "flash"}}{{with .Flash}}
+<div class="container flash-wrap">
+  <div class="flash flash--{{.Kind}}" role="status">{{.Text}}</div>
+</div>
+{{end}}{{end}}

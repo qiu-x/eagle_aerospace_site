@@ -1,0 +1,26 @@
+{{define "page"}}
+<section class="container section">
+  <header class="section-head">
+    <p class="eyebrow">{{.Tagline}}</p>
+    <h1>Za sterami</h1>
+    <p class="section-head__lead">{{.Lead}}</p>
+  </header>
+
+  <div class="card-grid">
+    {{range .Team}}
+    <article class="card card--person">
+      {{if .ImgPath}}
+      <div class="card__media" aria-hidden="true">
+        <img src="{{.ImgPath}}" alt="{{.Alt}}">
+      </div>
+      {{end}}
+      <div class="card__body">
+        <p class="eyebrow">{{.Role}}</p>
+        <h3 class="card__title">{{.Name}}</h3>
+        <p class="card__text">{{.Bio}}</p>
+      </div>
+    </article>
+    {{end}}
+  </div>
+</section>
+{{end}}

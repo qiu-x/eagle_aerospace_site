@@ -1,0 +1,37 @@
+{{define "page"}}
+<section class="container section">
+  <header class="section-head">
+    <p class="eyebrow">{{.Tagline}}</p>
+    <h1>Współpraca</h1>
+    <p class="section-head__lead">{{.Lead}}</p>
+  </header>
+
+  {{if .LeadImgPath}}
+  <figure class="section-media media-frame">
+    <img src="{{.LeadImgPath}}" alt="{{.LeadImgAlt}}">
+  </figure>
+  {{end}}
+
+  <div class="feature-list feature-list--text">
+    {{range .Media}}
+    <article class="feature-row">
+      <div class="feature-row__body">
+        <h3>{{.Title}}</h3>
+        <p>{{.Text}}</p>
+      </div>
+    </article>
+    {{end}}
+  </div>
+</section>
+
+<section class="container section section--tight">
+  <div class="logo-strip">
+    <h2 class="logo-strip__title">Partnerzy i instytucje</h2>
+    <ul class="logo-strip__list">
+      {{range .Partners}}
+      <li class="logo-strip__item">{{.Name}}</li>
+      {{end}}
+    </ul>
+  </div>
+</section>
+{{end}}

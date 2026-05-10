@@ -1,0 +1,35 @@
+{{define "footer"}}
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="nav-logo" href="/">
+        <span class="nav-logo__tile" aria-hidden="true">
+          <img src="/content/img/logo.png" alt="" width="128" height="128">
+        </span>
+        <span class="nav-logo__wordmark">EAGLE<span> AEROSPACE</span></span>
+      </a>
+      <p>Polskie systemy bezzałogowe projektowane i produkowane lokalnie. Inżynieria, która działa tam, gdzie zawodzą standardowe rozwiązania.</p>
+    </div>
+
+    <div class="footer__col">
+      <div class="footer__title">Nawigacja</div>
+      <ul class="footer__nav">
+        {{range .NavItems}}<li><a href="{{.Href}}">{{.Label}}</a></li>{{end}}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <div class="footer__title">Kontakt</div>
+      <ul class="footer__nav">
+        <li>biuro@eagleaero.space</li>
+        <li>+48 883 550 701</li>
+        <li>Rzeszów, Dolina Lotnicza</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© Eagle Aerospace · Wszelkie prawa zastrzeżone</p>
+  </div>
+</footer>
+{{end}}
