@@ -111,16 +111,16 @@ var sitePL = SiteData{
 			{
 				Label: "Klasa II - VTOL",
 				Items: []CatalogItem{
-					{Name: "EA-V1", Description: "VTOL hybrydowy - start pionowy, przelot poziomy, bez pasa startowego."},
-					{Name: "EA-V2", Description: "Tilt-rotor przeznaczony do długotrwałych misji patrolowych."},
+					// {Name: "EA-V1", Description: "VTOL hybrydowy - start pionowy, przelot poziomy, bez pasa startowego."},
+					// {Name: "EA-V2", Description: "Tilt-rotor przeznaczony do długotrwałych misji patrolowych."},
 					{Name: "EA-V3", Description: "VTOL o skróconym przebiegu przeznaczony dla jednostek mobilnych."},
 				},
 			},
 			{
 				Label: "Klasa III - Wielowirnikowce",
 				Items: []CatalogItem{
-					{Name: "EA-M1", Description: "Hexakopter inspekcyjny z precyzyjnym systemem zawisu."},
-					{Name: "EA-M2", Description: "Oktorotor do misji w środowiskach przemysłowych i infrastrukturalnych."},
+					// {Name: "EA-M1", Description: "Hexakopter inspekcyjny z precyzyjnym systemem zawisu."},
+					// {Name: "EA-M2", Description: "Oktorotor do misji w środowiskach przemysłowych i infrastrukturalnych."},
 					{Name: "EA-M3", Description: "Mikro wielowirnikowiec do operacji wewnątrz budynków."},
 				},
 			},

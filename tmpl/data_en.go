@@ -111,16 +111,16 @@ var siteEN = SiteData{
 			{
 				Label: "Class II - VTOL",
 				Items: []CatalogItem{
-					{Name: "EA-V1", Description: "Hybrid VTOL - vertical take-off, horizontal cruise, no runway required."},
-					{Name: "EA-V2", Description: "Tilt-rotor designed for long-endurance patrol missions."},
+					// {Name: "EA-V1", Description: "Hybrid VTOL - vertical take-off, horizontal cruise, no runway required."},
+					// {Name: "EA-V2", Description: "Tilt-rotor designed for long-endurance patrol missions."},
 					{Name: "EA-V3", Description: "Short-roll VTOL aimed at mobile units."},
 				},
 			},
 			{
 				Label: "Class III - Multirotor",
 				Items: []CatalogItem{
-					{Name: "EA-M1", Description: "Inspection hexacopter with a precision hover system."},
-					{Name: "EA-M2", Description: "Octorotor for missions in industrial and infrastructure environments."},
+					// {Name: "EA-M1", Description: "Inspection hexacopter with a precision hover system."},
+					// {Name: "EA-M2", Description: "Octorotor for missions in industrial and infrastructure environments."},
 					{Name: "EA-M3", Description: "Micro multirotor for indoor operations."},
 				},
 			},
