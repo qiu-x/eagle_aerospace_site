@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"eagle_site_v2/page"
+	"eagle_site_v2/submission"
 	"eagle_site_v2/tmpl"
 )
 
@@ -19,22 +20,22 @@ func fileServerFilter(next http.Handler) http.Handler {
 	})
 }
 
-func addLocalizedRoutes(mux *http.ServeMux, prefix string, lang tmpl.Lang, r *tmpl.Renderer) {
+func addLocalizedRoutes(mux *http.ServeMux, prefix string, lang tmpl.Lang, r *tmpl.Renderer, sink *submission.Sink) {
 	mux.Handle("GET "+prefix+"/{$}", page.HomeHandler(r, lang))
 	mux.Handle("GET "+prefix+"/hangar", page.HangarHandler(r, lang))
 	mux.Handle("GET "+prefix+"/scenarios", page.ScenariosHandler(r, lang))
 	mux.Handle("GET "+prefix+"/cooperation", page.CooperationHandler(r, lang))
 	mux.Handle("GET "+prefix+"/crew", page.CrewHandler(r, lang))
 	mux.Handle("GET "+prefix+"/contact", page.ContactGetHandler(r, lang))
-	mux.Handle("POST "+prefix+"/contact", page.ContactPostHandler(r, lang))
+	mux.Handle("POST "+prefix+"/contact", page.ContactPostHandler(r, lang, sink))
 }
 
-func addRoutes(mux *http.ServeMux, r *tmpl.Renderer) {
+func addRoutes(mux *http.ServeMux, r *tmpl.Renderer, sink *submission.Sink) {
 	assets := http.FileServer(http.Dir("content"))
 	mux.Handle("GET /content/", http.StripPrefix("/content", fileServerFilter(assets)))
 
-	addLocalizedRoutes(mux, "/pl", tmpl.LangPL, r)
-	addLocalizedRoutes(mux, "/en", tmpl.LangEN, r)
+	addLocalizedRoutes(mux, "/pl", tmpl.LangPL, r, sink)
+	addLocalizedRoutes(mux, "/en", tmpl.LangEN, r, sink)
 
 	// 302 REDIRECT to a localized home based on Accept-Language.
 	mux.HandleFunc("GET /{$}", page.LocaleRedirect)

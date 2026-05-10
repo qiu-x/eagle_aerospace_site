@@ -5,7 +5,9 @@ import (
 	"net/http"
 	"net/mail"
 	"strings"
+	"time"
 
+	"eagle_site_v2/submission"
 	"eagle_site_v2/tmpl"
 )
 
@@ -26,7 +28,6 @@ func ContactGetHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
 				Text: site.Strings["flash.contact_success"],
 			}
 		}
-		// Copy the static content so we can attach a per-request blank form.
 		c := site.Contact
 		c.Form = tmpl.ContactFormInput{}
 		c.FieldErrors = nil
@@ -34,7 +35,7 @@ func ContactGetHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
 	}
 }
 
-func ContactPostHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
+func ContactPostHandler(r *tmpl.Renderer, lang tmpl.Lang, sink *submission.Sink) http.HandlerFunc {
 	site := tmpl.SiteFor(lang)
 	return func(w http.ResponseWriter, req *http.Request) {
 		if err := req.ParseForm(); err != nil {
@@ -71,7 +72,6 @@ func ContactPostHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
 			return
 		}
 
-		// SMTP / file storage comes later.
 		slog.Info("contact submission",
 			slog.String("lang", string(lang)),
 			slog.String("name", form.Name),
@@ -81,6 +81,31 @@ func ContactPostHandler(r *tmpl.Renderer, lang tmpl.Lang) http.HandlerFunc {
 			slog.String("topic", form.Topic),
 			slog.Int("message_len", len(form.Message)),
 		)
+
+		sub := submission.Submission{
+			ReceivedAt: time.Now().UTC(),
+			Lang:       string(lang),
+			Name:       form.Name,
+			Org:        form.Org,
+			Email:      form.Email,
+			Phone:      form.Phone,
+			Topic:      form.Topic,
+			Message:    form.Message,
+		}
+		if err := sink.Submit(sub); err != nil {
+			slog.Error("submission persistence failed",
+				slog.String("email", form.Email),
+				slog.Any("err", err))
+			c := site.Contact
+			c.Form = form
+			flash := &tmpl.FlashMessage{
+				Kind: "error",
+				Text: site.Strings["flash.contact_error"],
+			}
+			w.WriteHeader(http.StatusInternalServerError)
+			renderOrFail(w, r, "contact", contactBaseData(lang, req.URL.Path, c, flash))
+			return
+		}
 
 		http.Redirect(w, req, req.URL.Path+"?sent=1", http.StatusSeeOther)
 	}
