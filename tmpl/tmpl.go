@@ -1,21 +1,19 @@
-// Package tmpl holds page-data structs, the static-content registry,
-// and the template renderer used by the page handlers.
 package tmpl
 
-// NavItem is a single primary-navigation entry.
+// Single primary-navigation entry.
 type NavItem struct {
 	Label string
 	Href  string
 	Key   string
 }
 
-// FlashMessage is shown at the top of a page (e.g. contact-form success).
+// Shown at the top of a page (e.g. contact-form success).
 type FlashMessage struct {
 	Kind string // "success" | "error"
 	Text string
 }
 
-// BasePageData is the shell payload every page receives.
+// Shell payload every page receives.
 type BasePageData struct {
 	Title        string
 	MetaDesc     string
@@ -26,7 +24,9 @@ type BasePageData struct {
 	Content      any
 }
 
-// ── Reusable component structs ────────────────────────────────────────
+/* 
+ * Reusable component structs:
+ */
 
 type MediaCard struct {
 	Title   string
@@ -74,7 +74,9 @@ type ContactInfoBlock struct {
 	Address []string // address lines
 }
 
-// ── Page-specific payloads ───────────────────────────────────────────
+/* 
+ * Page-specific payloads: 
+ */
 
 type HomeStat struct {
 	Key   string
@@ -115,7 +117,7 @@ type CrewPageData struct {
 	Team    []TeamMember
 }
 
-// ContactFormInput is the user-submitted contact form payload.
+// User-submitted contact form payload.
 type ContactFormInput struct {
 	Name    string
 	Org     string
