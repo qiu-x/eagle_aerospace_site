@@ -1,0 +1,83 @@
+---
+- name: Ensure local artifact exists
+  ansible.builtin.stat:
+    path: "{{ artifact_path }}"
+  delegate_to: localhost
+  become: false
+  register: _artifact_stat
+
+- name: Fail if artifact is missing
+  ansible.builtin.assert:
+    that:
+      - _artifact_stat.stat.exists
+      - _artifact_stat.stat.isreg
+    fail_msg: "Build artifact not found at {{ artifact_path }}. Run the CI build first or pass -e artifact_path=..."
+
+- name: Ensure releases directory exists
+  ansible.builtin.file:
+    path: "{{ releases_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Create this release directory
+  ansible.builtin.file:
+    path: "{{ release_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Upload + extract release tarball
+  ansible.builtin.unarchive:
+    src: "{{ artifact_path }}"
+    dest: "{{ release_dir }}"
+    remote_src: false
+
+- name: Ensure binary is executable
+  ansible.builtin.file:
+    path: "{{ release_dir }}/eagle_site"
+    mode: "0755"
+
+- name: Sanity check release contents (binary + templates + content)
+  ansible.builtin.stat:
+    path: "{{ release_dir }}/{{ item }}"
+  loop:
+    - eagle_site
+    - templates
+    - content
+  register: _release_contents
+
+- name: Fail if release is missing required pieces
+  ansible.builtin.assert:
+    that:
+      - item.stat.exists
+    fail_msg: "release {{ release_id }} is missing {{ item.item }} — refusing to flip symlink"
+  loop: "{{ _release_contents.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Flip current symlink atomically
+  ansible.builtin.file:
+    src: "{{ release_dir }}"
+    dest: "{{ current_link }}"
+    state: link
+    force: true
+    follow: false
+  notify: restart eagle_site
+
+- name: Flush handlers (restart service before pruning)
+  ansible.builtin.meta: flush_handlers
+
+- name: List existing releases
+  ansible.builtin.find:
+    paths: "{{ releases_dir }}"
+    file_type: directory
+    recurse: false
+  register: _all_releases
+
+- name: Prune old releases (keep last {{ keep_releases }})
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ (_all_releases.files | sort(attribute='mtime'))[:-(keep_releases | int + 1)] }}"
+  loop_control:
+    label: "{{ item.path }}"
+  when: item.path != release_dir

@@ -1,0 +1,100 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build linux/amd64 artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build static binary
+        env:
+          GOOS: linux
+          GOARCH: amd64
+          CGO_ENABLED: "0"
+        run: |
+          go build -trimpath -ldflags '-s -w' -o eagle_site .
+
+      - name: Smoke-vet & build all packages
+        run: |
+          go vet ./...
+          go build ./...
+
+      - name: Package release tarball
+        run: |
+          tar -czf eagle_site.tar.gz eagle_site templates content
+          ls -lh eagle_site.tar.gz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eagle_site-${{ github.sha }}
+          path: eagle_site.tar.gz
+          retention-days: 14
+          if-no-files-found: error
+
+  deploy:
+    name: deploy via ansible
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: eagle_site-${{ github.sha }}
+          path: ansible/artifact
+
+      - name: Install ansible
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install 'ansible-core>=2.16,<2.18'
+          ansible --version
+
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 0700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 0600 ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 0644 ~/.ssh/known_hosts
+
+      - name: Write inventory
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          cat > ansible/hosts.ini <<EOF
+          [eagle_site]
+          ${DEPLOY_HOST} ansible_user=${DEPLOY_USER} ansible_ssh_private_key_file=~/.ssh/id_ed25519
+          EOF
+          cat ansible/hosts.ini
+
+      - name: Run ansible-playbook
+        working-directory: ansible
+        env:
+          ANSIBLE_FORCE_COLOR: "1"
+        run: |
+          ansible-playbook -i hosts.ini deploy.yml \
+            -e "release_id=${GITHUB_SHA}"

@@ -1,0 +1,6 @@
+---
+- name: Deploy eagle_site
+  hosts: eagle_site
+  gather_facts: true
+  roles:
+    - role: eagle_site

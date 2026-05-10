@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  role_name: eagle_site
+  author: eagle-aerospace
+  description: Deploy the Eagle Aerospace landing page (Go binary + templates + content) behind systemd.
+  license: proprietary
+  min_ansible_version: "2.14"
+  platforms:
+    - name: ArchLinux
+      versions: [any]
+dependencies: []

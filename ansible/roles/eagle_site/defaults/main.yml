@@ -1,0 +1,13 @@
+---
+service_name: eagle_site.service
+
+install_root: /home/eagle_site/eagle_site_v2
+releases_dir: "{{ install_root }}/releases"
+current_link: "{{ install_root }}/current"
+
+release_id: "{{ lookup('env', 'GITHUB_SHA') | default(ansible_date_time.iso8601_basic_short, true) }}"
+release_dir: "{{ releases_dir }}/{{ release_id }}"
+
+artifact_path: "{{ playbook_dir }}/artifact/eagle_site.tar.gz"
+
+keep_releases: 5
