@@ -87,7 +87,7 @@ jobs:
         run: |
           cat > ansible/hosts.ini <<EOF
           [eagle_site]
-          ${DEPLOY_HOST} ansible_user=${DEPLOY_USER} ansible_ssh_private_key_file=~/.ssh/id_ed25519
+          ${DEPLOY_HOST} ansible_user=${DEPLOY_USER} ansible_port=69 ansible_ssh_private_key_file=~/.ssh/id_ed25519
           EOF
           cat ansible/hosts.ini
 

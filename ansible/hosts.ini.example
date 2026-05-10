@@ -1,6 +1,6 @@
 # DEPLOY_USER must be the `eagle_site`
 [eagle_site]
-eagle.example.com ansible_user=eagle_site
+eagle.example.com ansible_user=eagle_site ansible_port=69
 
 [eagle_site:vars]
 ansible_python_interpreter=/usr/bin/python3
