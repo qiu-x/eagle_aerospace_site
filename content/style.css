@@ -352,7 +352,7 @@ main { padding-top: var(--nav-h); min-height: 100vh; }
       rgba(12, 15, 19, 0.0) 70%,
       var(--bg) 100%
     ),
-    url('/content/img/hero.png');
+    url('/content/img/hero.jpeg');
   background-size: cover, cover, cover;
   background-position: center, center, center right;
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -374,7 +374,7 @@ main { padding-top: var(--nav-h); min-height: 100vh; }
         rgba(12, 15, 19, 0.70) 60%,
         var(--bg) 100%
       ),
-      url('/content/img/hero.png');
+      url('/content/img/hero.jpeg');
     background-size: cover, cover;
     background-position: center, center;
     min-height: clamp(28rem, 70vh, 36rem);
