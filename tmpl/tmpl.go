@@ -93,6 +93,18 @@ type TeamMember struct {
 	Alt     string
 }
 
+type ContactInfoBlock struct {
+	Email   string
+	Phone   string
+	Address []string
+	KRS     string
+	NIP     string
+	REGON   string
+}
+/*
+ * Page-specific payloads:
+ */
+type HomeStat struct {
 	Key   string
 	Value string
 }
