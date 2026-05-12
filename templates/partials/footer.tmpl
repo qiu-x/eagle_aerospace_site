@@ -21,9 +21,9 @@
     <div class="footer__col">
       <div class="footer__title">{{tr .Strings "footer.contact_title"}}</div>
       <ul class="footer__nav">
-        <li>biuro@eagleaero.space</li>
-        <li>+48 883 550 701</li>
-        <li>Rzeszów, Dolina Lotnicza</li>
+        <li><a href="mailto:{{.ContactInfo.Email}}">{{.ContactInfo.Email}}</a></li>
+        <li><a href="tel:{{.ContactInfo.Phone}}">{{.ContactInfo.Phone}}</a></li>
+        <li>{{range $i, $line := .ContactInfo.Address}}{{if $i}}<br>{{end}}{{$line}}{{end}}</li>
       </ul>
     </div>
   </div>

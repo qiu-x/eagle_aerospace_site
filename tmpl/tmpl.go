@@ -46,6 +46,7 @@ type BasePageData struct {
 	Strings      map[string]string
 	LangLinks    []LangLink
 	Flash        *FlashMessage
+	ContactInfo  ContactInfoBlock
 	Content      any
 }
 
@@ -101,6 +102,7 @@ type ContactInfoBlock struct {
 	NIP     string
 	REGON   string
 }
+
 /*
  * Page-specific payloads:
  */

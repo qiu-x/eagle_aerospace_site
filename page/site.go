@@ -30,6 +30,7 @@ func newBaseData(lang tmpl.Lang, key, bodyClass, navKey, reqPath string,
 		Strings:      site.Strings,
 		LangLinks:    tmpl.BuildLangLinks(reqPath, lang),
 		Flash:        flash,
+		ContactInfo:  site.Contact.ContactInfo,
 		Content:      content,
 	}
 }
