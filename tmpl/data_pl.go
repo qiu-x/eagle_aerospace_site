@@ -103,9 +103,9 @@ var sitePL = SiteData{
 			{
 				Label: "Klasa I - Płatowce",
 				Items: []CatalogItem{
-					{Name: "EA-F1", Description: "Stałopłat dalekiego zasięgu do rozpoznania i mapowania terenu."},
-					{Name: "EA-F2", Description: "Kompaktowy płatowiec do szybkich misji zwiadowczych w trudnym terenie."},
-					{Name: "EA-F3", Description: "Platforma o zwiększonym udźwigu dla zaawansowanego osprzętu pomiarowego."},
+					{Name: "EA-F1", Description: "Zwrotne latające skrzydło do szybkiej reakcji na wykryte zagrożenie."},
+					{Name: "EA-F2", Description: "Klasyczna platforma stałopłatowa do długotrwałego monitoringu przestrzeni i misji ISR."},
+					{Name: "EA-F3", Description: "Kompaktowe latające skrzydło składane do rozmiaru plecaka. Przeznaczone do monitoringu i patrolowania terenu."},
 				},
 			},
 			{
@@ -113,15 +113,15 @@ var sitePL = SiteData{
 				Items: []CatalogItem{
 					// {Name: "EA-V1", Description: "VTOL hybrydowy - start pionowy, przelot poziomy, bez pasa startowego."},
 					// {Name: "EA-V2", Description: "Tilt-rotor przeznaczony do długotrwałych misji patrolowych."},
-					{Name: "EA-V3", Description: "VTOL o skróconym przebiegu przeznaczony dla jednostek mobilnych."},
+					{Name: "EA-V3", Description: "Zmodyfikowana platforma F3 z wzmocnionym napędem umożliwiającym pionowy start."},
 				},
 			},
 			{
 				Label: "Klasa III - Wielowirnikowce",
 				Items: []CatalogItem{
-					// {Name: "EA-M1", Description: "Hexakopter inspekcyjny z precyzyjnym systemem zawisu."},
-					// {Name: "EA-M2", Description: "Oktorotor do misji w środowiskach przemysłowych i infrastrukturalnych."},
-					{Name: "EA-M3", Description: "Mikro wielowirnikowiec do operacji wewnątrz budynków."},
+					{Name: "EA-M1", Description: "Quadcopter o rozpiętości 65 cm przystosowany do przenoszenia ładunku do 2 kg."},
+					{Name: "EA-M2", Description: "Zwrotny quadcopter FPV do szybkich operacji w trudno dostępnym terenie."},
+				//	{Name: "EA-M3", Description: "Mikro wielowirnikowiec do operacji wewnątrz budynków."},
 				},
 			},
 		},
@@ -191,11 +191,11 @@ var sitePL = SiteData{
 			"Jako startup zachowujemy pełną elastyczność i zaangażowanie. Każdy projekt jest " +
 			"dla nas ważny, każdy klient ma bezpośredni kontakt z zespołem.",
 		Team: []TeamMember{
-			{Name: "Grzegorz Trzęsień", Role: "Aviation Systems Engineer", Bio: "Specjalista od aerodynamiki i materiałów kompozytowych."},
-			{Name: "Filip Starzyński", Role: "Aviation Systems Engineer", Bio: "Specjalista od aerodynamiki i materiałów kompozytowych."},
+			{Name: "Grzegorz Trzęsień", Role: "Aviation Systems Engineer", Bio: "Mechanika lotu, planowanie misji, koncepcja systemu"},
+			{Name: "Filip Starzyński", Role: "Aviation Systems Engineer", Bio: "Specjalista od aerodynamiki i analiz numerycznych, obróbka CNC, prototypowanie"},
 			{Name: "Aleksander Słomka", Role: "Software Engineer", Bio: "Systemy pokładowe, łącza danych i autopiloty."},
-			{Name: "Jędrzej Srebrzyński", Role: "Aviation Systems Engineer", Bio: "Specjalista od aerodynamiki i materiałów kompozytowych."},
-			{Name: "Kajetan Ostrowski", Role: "AI Engineer", Bio: "Rozwój w zakresie dużych modelów językowych"},
+			{Name: "Jędrzej Srebrzyński", Role: "Aviation Systems Engineer", Bio: "Koncepcja systemu, integracja komponentów"},
+			{Name: "Kajetan Ostrowski", Role: "AI Engineer", Bio: "Projektowanie CAD, prototypowanie, relacje z partnerami"},
 		},
 	},
 
@@ -215,7 +215,10 @@ var sitePL = SiteData{
 		ContactInfo: ContactInfoBlock{
 			Email:   "biuro@eagleaero.space",
 			Phone:   "+48 883 550 701",
-			Address: []string{"Rzeszów, Polska", "Dolina Lotnicza"},
+			Address: []string{"ul. Wojska Polskiego 9 39-300 Mielec, Polska"},
+			KRS: "0001212701",
+			NIP: "8172223670",
+			REGON: "543537700",
 		},
 		Labels: ContactLabels{
 			HoneypotLabel:    "Strona",

@@ -103,9 +103,9 @@ var siteEN = SiteData{
 			{
 				Label: "Class I - Fixed-wing",
 				Items: []CatalogItem{
-					{Name: "EA-F1", Description: "Long-range fixed-wing aircraft for reconnaissance and terrain mapping."},
-					{Name: "EA-F2", Description: "Compact fixed-wing for fast scouting missions in difficult terrain."},
-					{Name: "EA-F3", Description: "Increased-payload platform for advanced measurement equipment."},
+					{Name: "EA-F1", Description: "Agile flying wing for rapid response to detected threats."},
+					{Name: "EA-F2", Description: "Fixed-wing platform for long-endurance area monitoring and ISR missions."},
+					{Name: "EA-F3", Description: "Compact flying wing that folds down to backpack size. Designed for monitoring and area patrol."},
 				},
 			},
 			{
@@ -113,15 +113,15 @@ var siteEN = SiteData{
 				Items: []CatalogItem{
 					// {Name: "EA-V1", Description: "Hybrid VTOL - vertical take-off, horizontal cruise, no runway required."},
 					// {Name: "EA-V2", Description: "Tilt-rotor designed for long-endurance patrol missions."},
-					{Name: "EA-V3", Description: "Short-roll VTOL aimed at mobile units."},
+					{Name: "EA-V3", Description: "Modified F3 platform with reinforced propulsion enabling vertical take-off and landing."},
 				},
 			},
 			{
 				Label: "Class III - Multirotor",
 				Items: []CatalogItem{
-					// {Name: "EA-M1", Description: "Inspection hexacopter with a precision hover system."},
-					// {Name: "EA-M2", Description: "Octorotor for missions in industrial and infrastructure environments."},
-					{Name: "EA-M3", Description: "Micro multirotor for indoor operations."},
+					 {Name: "EA-M1", Description: "Quadcopter with a 65 cm diagonal, rated for payloads up to 2 kg."},
+					 {Name: "EA-M2", Description: "Agile FPV quadcopter for fast operations in hard-to-reach terrain."},
+			//		{Name: "EA-M3", Description: "Micro multirotor for indoor operations."},
 				},
 			},
 		},
@@ -191,11 +191,11 @@ var siteEN = SiteData{
 			"a profession. As a startup we keep full flexibility and commitment. Every " +
 			"project matters to us; every client talks to the team directly.",
 		Team: []TeamMember{
-			{Name: "Grzegorz Trzęsień", Role: "Aviation Systems Engineer", Bio: "Specialist in aerodynamics and composite materials."},
-			{Name: "Filip Starzyński", Role: "Aviation Systems Engineer", Bio: "Specialist in aerodynamics and composite materials."},
+			{Name: "Grzegorz Trzęsień", Role: "Aviation Systems Engineer", Bio: "Flight mechanics, mission planning, system concept."},
+			{Name: "Filip Starzyński", Role: "Aviation Systems Engineer", Bio: "Aerodynamics and numerical analysis, CNC machining, prototyping."},
 			{Name: "Aleksander Słomka", Role: "Software Engineer", Bio: "On-board systems, data links and autopilots."},
-			{Name: "Jędrzej Srebrzyński", Role: "Aviation Systems Engineer", Bio: "Specialist in aerodynamics and composite materials."},
-			{Name: "Kajetan Ostrowski", Role: "AI Engineer", Bio: "Work on large language models."},
+			{Name: "Jędrzej Srebrzyński", Role: "Aviation Systems Engineer", Bio: "System concept, component integration."},
+			{Name: "Kajetan Ostrowski", Role: "AI Engineer", Bio: "CAD design, prototyping, partner relations."},
 		},
 	},
 
@@ -215,7 +215,10 @@ var siteEN = SiteData{
 		ContactInfo: ContactInfoBlock{
 			Email:   "biuro@eagleaero.space",
 			Phone:   "+48 883 550 701",
-			Address: []string{"Rzeszów, Poland", "Aviation Valley"},
+			Address: []string{"ul. Wojska Polskiego 9 39-300 Mielec, Poland"},
+			KRS: "0001212701",
+			NIP: "8172223670",
+			REGON: "543537700",
 		},
 		Labels: ContactLabels{
 			HoneypotLabel:    "Website",
