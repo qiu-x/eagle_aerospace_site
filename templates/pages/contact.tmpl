@@ -83,6 +83,14 @@
           <span class="contact-list__label">{{.Labels.AddressLabel}}</span>
           <span>{{range $i, $line := .ContactInfo.Address}}{{if $i}}<br>{{end}}{{$line}}{{end}}</span>
         </li>
+        <li>
+          <span class="contact-list__label">{{.Labels.CompanyLabel}}</span>
+          <span>
+            KRS: {{.ContactInfo.KRS}}<br>
+            NIP: {{.ContactInfo.NIP}}<br>
+            REGON: {{.ContactInfo.REGON}}<br>
+          </span>
+        </li>
       </ul>
     </aside>
   </div>

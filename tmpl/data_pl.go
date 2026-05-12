@@ -234,6 +234,7 @@ var sitePL = SiteData{
 			EmailLabel:       "E-mail",
 			PhoneLabel:       "Telefon",
 			AddressLabel:     "Adres",
+			CompanyLabel:     "Dane firmy",
 		},
 	},
 }

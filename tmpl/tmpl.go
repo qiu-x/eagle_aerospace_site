@@ -179,6 +179,7 @@ type ContactLabels struct {
 	EmailLabel       string
 	PhoneLabel       string
 	AddressLabel     string
+	CompanyLabel     string
 }
 
 type ContactPageData struct {
