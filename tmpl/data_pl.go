@@ -195,7 +195,7 @@ var sitePL = SiteData{
 			{Name: "Filip Starzyński", Role: "Aviation Systems Engineer", Bio: "Specjalista od aerodynamiki i analiz numerycznych, obróbka CNC, prototypowanie"},
 			{Name: "Aleksander Słomka", Role: "Software Engineer", Bio: "Systemy pokładowe, łącza danych i autopiloty."},
 			{Name: "Jędrzej Srebrzyński", Role: "Aviation Systems Engineer", Bio: "Koncepcja systemu, integracja komponentów"},
-			{Name: "Kajetan Ostrowski", Role: "AI Engineer", Bio: "Projektowanie CAD, prototypowanie, relacje z partnerami"},
+			{Name: "Kajetan Ostrowski", Role: "Aviation Systems Engineer", Bio: "Projektowanie CAD, prototypowanie, relacje z partnerami"},
 		},
 	},
 
