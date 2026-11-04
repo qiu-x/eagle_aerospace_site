@@ -215,7 +215,7 @@ var siteEN = SiteData{
 		ContactInfo: ContactInfoBlock{
 			Email:   "biuro@eagleaero.space",
 			Phone:   "+48 883 550 701",
-			Address: []string{"ul. Wojska Polskiego 9 39-300 Mielec, Poland"},
+			Address: []string{"ul. Słowackiego 7A 35-060 Rzeszów, Poland"},
 			KRS: "0001212701",
 			NIP: "8172223670",
 			REGON: "543537700",
