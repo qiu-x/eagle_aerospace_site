@@ -21,4 +21,4 @@ jobs:
         uses: golangci/golangci-lint-action@v9.3.0
         with:
           working-directory: .
-          version: v2.13
+          version: v2.15
