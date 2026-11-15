@@ -15,10 +15,10 @@
   --text-muted:    #a8b0ba;
   --text-dim:      #7f8995;
 
-  /* burnt amber */
-  --accent:        #b8743c;
-  --accent-hover:  #c9854d;
-  --accent-active: #9f6432;
+  /* signal red */
+  --accent:        #cc0000;
+  --accent-hover:  #e01a1a;
+  --accent-active: #a80000;
   --accent-weak:   color-mix(in oklab, var(--accent) 14%, transparent);
   --focus-ring:    color-mix(in oklab, var(--accent) 24%, transparent);
 
@@ -444,7 +444,7 @@ main { padding-top: var(--nav-h); min-height: 100vh; }
 .btn--primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #101418;
+  color: #ffffff;
 }
 .btn--primary:hover {
   background: var(--accent-hover);
